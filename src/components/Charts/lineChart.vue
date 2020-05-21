@@ -35,6 +35,20 @@ export default {
       chart: null
     }
   },
+  watch: {
+    chartData: {
+      deep: true, // 深度监听
+      handler(newVal, oldVal) {
+        if (newVal) {
+          const option = Object.assign(this.chart.getOption(), {
+            xAxis: { data: newVal.xAxisData },
+            series: { data: newVal.dataList[0].data }
+          })
+          this.chart.setOption(option)
+        }
+      }
+    }
+  },
   mounted() {
     this.getLegend()
     this.initChart()
@@ -210,7 +224,7 @@ export default {
         animationEasing: 'linear', // 初始动画
         animationEasingUpdate: 'quarticInOut', // 数据更新的动画效果
         animationDuration: 3000, // 初始动画的时长，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更绚丽的初始动画效果
-        animationDurationUpdate: 300, // 数据更新动画的时长
+        animationDurationUpdate: 800, // 数据更新动画的时长
         series: this.getSeries()
       }
       this.chart.setOption(option)

@@ -51,7 +51,7 @@ import GaugeChart from '../Charts/gaugeChart'
 import LiquidfillChart from '../Charts/liquidfillChart'
 import LineChart from '../Charts/lineChart'
 import BarChart from '../Charts/barChart'
-
+import { mqttClient } from '../../utils/mqtt'
 export default {
   name: 'DevInfo',
   components: {
@@ -146,12 +146,44 @@ export default {
       }
     }
   },
+  created() {
+    this.mqttMSG()
+  },
   methods: {
     hide() {
       this.dialogTreeVisible = false
     },
     show() {
       this.dialogTreeVisible = true
+    },
+    mqttMSG() {
+    // mqtt连接
+      const topic = 'topic1'
+      mqttClient.on('connect', (e) => {
+        console.log('连接成功:')
+        mqttClient.subscribe(`${topic}`, { qos: 1 }, (error) => {
+          if (!error) {
+            console.log(`订阅${topic}成功`)
+          } else {
+            console.log(`订阅${topic}失败`)
+          }
+        })
+      })
+      // 接收消息处理
+      mqttClient.on('message', (topic, message) => {
+        const mqttData = JSON.parse(message.toString())
+        console.log('收到来自', topic, '的消息', message.toString())
+        this.weekChartData.dataList[0].data.push(mqttData.data)
+        this.weekChartData.xAxisData.push(mqttData.date)
+      })
+      // 断开发起重连
+      mqttClient.on('reconnect', (error) => {
+        console.log('正在重连:', error)
+      })
+      // 链接异常处理
+      mqttClient.on('error', (error) => {
+        console.log('连接失败:', error)
+      })
     }
   }
 }

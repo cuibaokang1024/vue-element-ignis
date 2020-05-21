@@ -2,40 +2,32 @@ import Vue from 'vue'
 
 import Cookies from 'js-cookie'
 
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
+import 'normalize.css/normalize.css'
 
 import Element from 'element-ui'
 import './styles/element-variables.scss'
 
 import Bmap from 'vue-baidu-map' // 引入百度地图
 
-import '@/styles/index.scss' // global css
+import '@/styles/index.scss' // 全局 css
 
 import App from './App'
 import store from './store'
 import router from './router'
 
-import './icons' // icon
-import './permission' // permission control
-import './utils/error-log' // error log
+import './icons' // 图标
+import './permission' // 权限控制
+import './utils/error-log'
 
-import * as filters from './filters' // global filters
+import * as filters from './filters' // 全局过滤
 
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online! ! !
- */
-import { mockXHR } from '../mock'
+import { mockXHR } from '../mock' // 数据模拟
 if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
 Vue.use(Element, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
+  size: Cookies.get('size') || 'medium'
 })
 Vue.use(Bmap, {
   ak: 'YVE2oN3K3SDZH8XpUkYj6ezf2h4wIkNf' // 百度地图秘钥

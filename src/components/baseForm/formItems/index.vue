@@ -17,15 +17,6 @@ export default {
       dialogVisible: false
     }
   },
-  computed: {
-    // 是否可编辑
-    disabled() {
-      return this.formOption.name.indexOf('edit') === -1
-    },
-    formName() {
-      return this.formOption.name || ''
-    }
-  },
   methods: {
     submitData() {
       this.$emit('update:formModel', this.formModel)

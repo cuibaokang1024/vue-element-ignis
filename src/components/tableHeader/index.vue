@@ -147,7 +147,6 @@ export default {
       <el-form disabled={this.disabled} inline={true} ref={this.formOption.name} rules={this.formOption.rules} v-model={this.formModel} label-position='left'>
         {ele}
         <el-button type='primary' icon='el-icon-search' onClick={this.handleFilter}>查询</el-button>
-        <el-button style='margin-left: 10px;' type='primary' icon='el-icon-edit'>添加</el-button>
         <select-tree ref='selectTree' tree-data={this.treeData.data} title={this.treeData.title} onSelectTreeNode={this.selectTreeNode} />
       </el-form>
     )

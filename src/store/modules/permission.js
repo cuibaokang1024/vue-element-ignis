@@ -25,7 +25,6 @@ const mutations = {
     state.routes = constantRoutes.concat(routes)
   }
 }
-
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
@@ -39,7 +38,6 @@ const actions = {
     })
   }
 }
-
 export default {
   namespaced: true,
   state,
